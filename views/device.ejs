@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>바른 교실</title>
+    <link rel="stylesheet" href="css/sytle.css">
+    <link rel="stylesheet" href="css/section-noMenu.css">
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <header>
+      <div class="left-spacer"></div>
+      <div class="title"><span><a class="white_a" href="/">바른 교실</a></span></div>
+      <div class="right-spacer"></div>
+      <nav>
+        <ul>
+          <a href="/"><li>내 자세</li></a>
+          <a href="/class"><li>바른 우리 교실</li></a>
+          <a href="/device"><li>장치 관리</li></a>
+        </ul>
+      </nav>
+    </header>
+    <section>
+      <div class="plate">
+        <h1>장치 추가</h1>
+        <form action="/appendDev" method="get">
+          <div class="selectArea">
+            <div class="listArea">
+              <div class="optionName">장치명</div>
+              <input type="text" name="nickname">
+            </div>
+          </div>
+          <button id="viewBtn" type="submit"><span>장치<br/>추가</span></button>
+        </form> 
+        <form action="/resetDevList">
+          <button id="devResetBtn" type="submit"><span>장치 리스트<br/>초기화</span></button>
+        </form>
+        <script>
+          if(<%= mode %> == 1) alert('성공적으로 장치를 등록했습니다.');
+          if(<%= mode %> == 2) alert('성공적으로 등록된 장치 리스트가 초기화되었습니다.');
+        </script>
+      </div>
+    </section>
+    <footer>
+      <div>Copyright(C) 2019. SparkMakers(BetaMan). All right reversed.</div>
+      <div>E-Mail: skymin0417@gmail.com</div>
+    </footer>
+  </body>
+</html>

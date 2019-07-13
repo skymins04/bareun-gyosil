@@ -1,0 +1,278 @@
+/*css reset*/
+
+@font-face {
+    font-family: 'BMHANNAAir';
+    src: url(BMHANNAAir_ttf.ttf) format('truetype');
+}
+html, body {
+    margin: 0px;
+    height: 100%;
+    width: 100%;
+    min-width: 1050px;
+}
+header, aside, section, footer {margin: 0px;}
+.disable {display: none !important;}
+
+/*defining header tag*/
+header {
+    background-color: rgb(111, 230, 190);
+    height: 15%;
+    width: 100%;
+
+}
+header .left-spacer {
+    float: left;
+    height: 100%;
+    width: 50px;
+}
+header .right-spacer {
+    float: right;
+    height: 100%;
+    width: 50px;
+}
+header .title {
+    display: table;
+    float: left;
+    font-size: 80px;
+    font-family: BMHANNAAir;
+    height: 100%;
+}
+header .title span {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+}
+.white_a {
+    text-decoration: none;
+    color: white;
+}
+
+header nav {
+    float: right;
+    display: table;
+    vertical-align: middle;
+    height: 100%;
+}
+header nav ul {
+    display: table-cell;
+    list-style: none;
+    text-align: center;
+    vertical-align: middle;
+}
+header nav ul a {
+    color: white;
+}
+header nav ul a li {
+    float: left;
+    padding: 10px;
+    border: 5px solid rgb(238, 238, 238);
+    margin: 0px 5px;
+    font-size: 30px;
+    font-family: BMHANNAAir;
+}
+
+/*define aside tag*/
+aside {
+    position: relative;
+    float: left;
+    height: 75%;
+    width: 15%;
+    background-color: rgb(222, 236, 213);
+}
+.menuTitle {
+    width: 100%;
+    text-align: center;
+    padding: 20px 0px;
+    font-family: BMHANNAAir;
+    font-size: 40px;
+}
+aside ul {
+    padding: 0px;
+}
+aside ul li {
+    text-align: center;
+    list-style: none;
+    color: black;
+    font-family: BMHANNAAir;
+    font-size: 24px;
+    margin-bottom: 40px;
+    height: 40px;
+}
+
+/*define footer tag*/
+footer {
+    display: inline-block;
+    height: 8%;
+    width: 100%;
+    background-color: rgb(218, 218, 218);
+}
+
+section {display: flex; float: left; width: 83%; height: 71%; margin: 1%; text-align: center;}
+section .plate {
+    width: 90%;
+    height: 95%;
+    margin: auto;
+    background-color: rgb(245, 245, 245);
+    border-radius: 20px;
+    border: 2px rgb(204, 204, 204) solid;
+}
+.selectArea {float: left; width: 800px;}
+#viewBtn {
+    display: flex;
+    float: left;
+    width: 150px;
+    height: 150px;
+    font-size: 50px;
+    color: white;
+    font-family: BMHANNAAir;
+    margin: 20px;
+    margin-left: 50px;
+    margin-top: 25px;
+    background-color: #6FE6BE;
+    
+}
+#viewBtn span {
+    margin: auto;
+}
+#startStudyBtn {
+    display: flex;
+    float: left;
+    width: 150px;
+    height: 150px;
+    font-size: 40px;
+    color: white;
+    font-family: BMHANNAAir;
+    margin: 20px;
+    margin-left: 50px;
+    margin-top: 25px;
+    background-color: #6FE6BE;
+    
+}
+#startStudyBtn span {
+    margin: auto;
+}
+#devResetBtn {
+    display: flex;
+    float: left;
+    width: 150px;
+    height: 150px;
+    font-size: 30px;
+    color: white;
+    font-family: BMHANNAAir;
+    margin: 20px;
+    margin-left: 50px;
+    margin-top: 25px;
+    background-color: rgb(230, 111, 111);
+    
+}
+#devResetBtn span {
+    margin: auto;
+}
+.scoreDesc {
+    float: left;
+    width: 530px;
+    margin-top: 150px;
+}
+
+.listArea {
+    display: flex;
+    width: 100%;
+    margin-top: 40px;
+    margin-left: 40px;
+}
+.optionName {
+    float: left;
+    width: 200px;
+    text-align: center;
+    margin: auto 20px auto 0px;
+    font-family: BMHANNAAir;
+    font-size: 30px;
+}
+#deviceNameList {
+    width: 500px;
+    height: 40px;
+    font-size: 20px;
+}
+#timeList {
+    width: 120px;
+    height: 40px;
+    font-size: 20px;
+}
+
+#description {
+    display: flex;
+    float: left;
+    height: 30%;
+    width: 100%;
+}
+
+#chart {
+    float: left;
+    width: 95%;
+    height: 37%;
+    margin-left: 2%;
+    margin-right: 3%;
+}
+
+.description {
+    display: flex;
+}
+
+.poseResult {
+    width: 300px;
+    height: 150px;
+    background-color: rgb(255, 101, 101);
+    display: flex;
+    margin: auto 0px;
+    margin-left: 65px;
+}
+
+.poseResult span {
+    margin: auto;
+    color: white;
+    font-family: BMHANNAAir;
+    font-size: 30px;
+}
+
+.score {
+    height: 20px;
+    margin-left: 10px;
+    margin-top: auto;
+    margin-bottom: 50px;
+}
+
+.advice {
+    display: flex;
+    margin-left: 50px;
+}
+
+.advice span {
+    margin: auto 0px;
+    font-family: BMHANNAAir;
+    font-size: 50px;
+}
+
+.plate>h1 {
+    font-family: BMHANNAAir;
+    font-size: 50px;
+    margin-bottom: 0px;
+    height: 40px;
+}
+
+.periodArea {
+    display: flex;
+    height: 50%;
+}
+#period {
+    margin-top: 200px;
+    font-family: BMHANNAAir;
+    font-size: 40px;
+}
+ul a {
+    text-decoration: none;
+    color: black;
+}
+
+.listArea>input {
+    width: 400px;
+}

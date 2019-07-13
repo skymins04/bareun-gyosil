@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>바른 교실</title>
+    <link rel="stylesheet" href="css/sytle.css">
+    <link rel="stylesheet" href="css/section-noMenu.css">
+    <link rel="stylesheet" href="css/c3.min.css">
+    <script src="js/d3.min.js"></script>
+    <script src="js/c3.min.js"></script>
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <header>
+      <div class="left-spacer"></div>
+      <div class="title"><span><a class="white_a" href="/">바른 교실</a></span></div>
+      <div class="right-spacer"></div>
+      <nav>
+        <ul>
+          <a href="/"><li>내 자세</li></a>
+          <a href="/class"><li>바른 우리 교실</li></a>
+          <a href="/device"><li>장치 관리</li></a>
+        </ul>
+      </nav>
+    </header>
+    <section>
+      <div class="plate">
+        <h1>내 자세 조회</h1>
+        <form action="/myPose" method="get">
+          <div class="selectArea">
+            <div class="listArea">
+              <div class="optionName">장치 선택</div>
+              <select name="deviceName" id="deviceNameList" onchange="enableElement()">
+                <option value="0" selected>====장치 선택====</option>
+                <% var i = 1; %>
+                <% device.forEach(function (item, index) { %>
+                <option value="<%= i %>"><%= item.nick %></option>
+                <% i += 1; %>
+                <% }); %>
+              </select>
+            </div>
+            <div class="listArea">
+              <div class="optionName">수업시간 선택</div>
+              <select name="time" id="timeList">
+                <option value="0" selected>전체</option>
+                <option value="1">1교시</option>
+                <option value="2">2교시</option>
+                <option value="3">3교시</option>
+              </select>
+            </div>
+          </div>
+          <button id="viewBtn" type="submit"><span>통계<br/>보기</span></button>
+        </form> 
+        <div class="scoreDesc">(0점: 엎드림, 2점: 드러누움, 4점: 등 안 대고 정자세, 6점: 등 대고 정자세)</div>
+        <div id="description" class="disable">
+          <div class="poseResult"><span id="poseResultText">자세가<br>많이 안좋아요</span></div>
+          <div class="score"><span id="scoreText">5점</span> / 6점만점</div>
+          <div class="advice"><span id="adviceText">" 수업 초반, 중반에 자세가 비교적 좋지 않아요 "</span></div>
+        </div>
+        <div id="chart" class="disable"></div>
+        <script>
+          var DEBUG = 0;
+
+          document.getElementById("timeList").disabled = true;
+          document.getElementById("viewBtn").disabled = true;
+          function enableElement() {
+            var sel = document.getElementById("deviceNameList");
+            if(sel.options[sel.selectedIndex].value == 0) {
+              document.getElementById("timeList").disabled = true;
+              document.getElementById("viewBtn").disabled = true;
+            }
+            else {
+              document.getElementById("timeList").disabled = false;
+              document.getElementById("viewBtn").disabled = false;
+            }
+          }
+          if(<%= mode %> == 1) {
+            var desEle = document.getElementById('description');
+            var chartEle = document.getElementById('chart');
+            var poseResult = document.getElementById('poseResultText');
+            var scoreText = document.getElementById('scoreText');
+            var adviceText = document.getElementById('adviceText');
+            
+            desEle.classList.remove('disable');
+            chartEle.classList.remove('disable');
+
+            var scores = [<%= score %>];
+            if(DEBUG) alert(scores.length);
+            
+            // calc score
+            var avgScore = 0;
+            for(var i = 0; i < scores.length; i++) {
+              avgScore += scores[i];
+            }
+            avgScore /= scores.length;
+            scoreText.innerHTML = String(avgScore.toFixed(1))+'점';
+
+            // score level logic
+            if(avgScore == 6) {
+              poseResult.innerHTML = "바른 자세<br>아주 칭찬해~";
+              poseResult.parentElement.style.backgroundColor = "#6FE6BE";
+            }
+            else if(avgScore < 6 && avgScore >= 5) {
+              poseResult.innerHTML = "아주 조금만<br>노력하면 될거같아요!";
+              poseResult.parentElement.style.backgroundColor = "#9FE66F";
+            }
+            else if(avgScore < 5 && avgScore >= 4) {
+              poseResult.innerHTML = "나쁘지 않은<br>자세였어요^^";
+              poseResult.parentElement.style.backgroundColor = "#cce66f";
+            }
+            else if(avgScore < 4 && avgScore >= 3) {
+              poseResult.innerHTML = "자세가 좀<br>안좋아보여요";
+              poseResult.parentElement.style.backgroundColor = "#e6e46f";
+            }
+            else if(avgScore < 3 && avgScore >= 2) {
+              poseResult.innerHTML = "많이<br>분발해야되요..!";
+              poseResult.parentElement.style.backgroundColor = "#e6ca6f";
+            }
+            else if(avgScore < 2 && avgScore >= 1) {
+              poseResult.innerHTML = "매우 심각하기<br>직전이에요...";
+              poseResult.parentElement.style.backgroundColor = "#e69b6f";
+            }
+            else if(avgScore < 1 && avgScore >= 0) {
+              poseResult.innerHTML = "척추뼈가<br>살아계신가요...?";
+              poseResult.parentElement.style.backgroundColor = "#e66f6f";
+            }
+            
+            // advice logic
+            var earlyAvgScore = 0, midAvgScore = 0, lateAvgScore = 0;
+            for(var i = 0; i < scores.length/3; i++) {
+              earlyAvgScore += scores[i];
+              midAvgScore += scores[i+scores.length/3];
+              lateAvgScore += scores[i+scores.length/3*2];
+            }
+            earlyAvgScore /= scores.length/3;
+            midAvgScore /= scores.length/3;
+            lateAvgScore /= scores.length/3;
+            
+            var adviceStr = '" 수업시간';
+            if(earlyAvgScore >= 4 && midAvgScore >= 4 && lateAvgScore >= 4) {
+              adviceStr = '" 수업시간동안 전체적으로 자세가 좋았아요~ @==>v<@"';
+            }
+            else if(earlyAvgScore < 4 && midAvgScore < 4 && lateAvgScore < 4) {
+              adviceStr = '" 수업시간동안 내내 자세가 나빴슴돠... 그러다 척추 나가요 "';
+            }
+            else {
+              if(earlyAvgScore < 4) adviceStr += ' 초반';
+              if(midAvgScore < 4) adviceStr += ' 중반';
+              if(lateAvgScore < 4) adviceStr += ' 후반';
+              adviceStr += '에 자세가 비교적 좋지 않았어요 "';
+            }
+
+            adviceText.innerHTML = adviceStr;
+
+            var chart = c3.generate({
+              bindto: '#chart',
+              data: {
+                columns: [
+                  ['자세변화',<%= score %>]
+                ]
+              },
+              axis: {
+                y: {
+                  max: 6,
+                  min: 0,
+                  tick: {
+                    format: function(d) {
+                      return d + "점";
+                    }
+                  }
+                }
+              },
+              grid: {
+                y: {
+                  lines: [{
+                    value: 0,
+                    class: 'gridGray'
+                  }, {
+                    value: 2,
+                    class: 'gridGray'
+                  }, {
+                    value: 4,
+                    class: 'gridGray'
+                  }, {
+                    value: 6,
+                    class: 'gridGray'
+                  }]
+                }
+              }
+            });
+          }
+        </script>
+      </div>
+    </section>
+    <footer>
+      <div>Copyright(C) 2019. SparkMakers(BetaMan). All right reversed.</div>
+      <div>E-Mail: skymin0417@gmail.com</div>
+    </footer>
+  </body>
+</html>

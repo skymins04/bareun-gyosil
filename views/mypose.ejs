@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>바른 교실</title>
+    <link rel="stylesheet" href="css/sytle.css">
+    <link rel="stylesheet" href="css/section-noMenu.css">
+    <link rel="stylesheet" href="css/c3.min.css">
+    <script src="js/d3.min.js"></script>
+    <script src="js/c3.min.js"></script>
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <header>
+      <div class="left-spacer"></div>
+      <div class="title"><span><a class="white_a" href="/">바른 교실</a></span></div>
+      <div class="right-spacer"></div>
+      <nav>
+        <ul>
+          <a href="/"><li>내 자세</li></a>
+          <a href="/class"><li>바른 우리 교실</li></a>
+          <a href="/device"><li>장치 관리</li></a>
+        </ul>
+      </nav>
+    </header>
+    <section>
+      <div class="plate">
+        
+        <div class="selectArea">
+          <div class="listArea">
+            <div class="optionName">장치 선택</div>
+            <select name="deviceName" id="deviceNameList" onchange="enableNextBox()">
+              <option value="0" selected>====장치 선택====</option>
+              <% var i = 1; %>
+              <% data.forEach(function (item, index) { %>
+              <option value="<%= i %>"><%= item.nick %> (<%= item.ip %>)</option>
+              <% i += 1; %>
+              <% }); %>
+            </select>
+          </div>
+          <div class="listArea">
+            <div class="optionName">기준 시간 선택</div>
+            <select name="time" id="timeList">
+              <option value="0" selected>전체</option>
+              <option value="1" selected>1교시</option>
+              <option value="2" selected>2교시</option>
+              <option value="3" selected>3교시</option>
+              <option value="4" selected>4교시</option>
+            </select>
+          </div>
+        </div>
+        <div class="viewBtn" onClick="view_graph();"><span>통계<br/>보기</span></div>
+        <div id="description" class="disable">
+          <div class="poseResult"><span>자세가<br>많이 안좋아요</span></div>
+          <div class="score"><span>5점</span> / 6점만점</div>
+          <div class="advice"><span>" 수업 초반, 중반에 자세가 비교적 좋지 않아요 "</span></div>
+        </div>
+        <div id="chart" class="disable"></div>
+        <script>
+          document.getElementById("timeList").disabled = true;
+          function enableNextBox() {
+            var sel = document.getElementById("deviceNameList");
+            if(sel.options[sel.selectedIndex].value == 0) {
+              document.getElementById("timeList").disabled = true;
+            }
+            else {
+              document.getElementById("timeList").disabled = false;
+            }
+          }
+          function view_graph() {
+            var desEle = document.getElementById('description');
+            var chartEle = document.getElementById('chart');
+            var poseResult = document.getElementsByClassName('poseResult');
+            
+            desEle.classList.remove('disable');
+            chartEle.classList.remove('disable');
+          }
+
+          /*
+          var chart = c3.generate({
+            bindto: '#chart',
+            data: {
+              columns: [
+                ['data1', 1,2,5,4,3,6]
+              ]
+            },
+            axis: {
+              x : {show:false},
+              y: {
+                max: 6,
+                min: 0,
+                tick: {
+                  format: function(d) {
+                    return d + "점";
+                  }
+                }
+              }
+            },
+            grid: {
+              y: {
+                lines: [{
+                  value: 0,
+                  class: 'gridGray'
+                }, {
+                  value: 2,
+                  class: 'gridGray'
+                }, {
+                  value: 4,
+                  class: 'gridGray'
+                }, {
+                  value: 6,
+                  class: 'gridGray'
+                }]
+              }
+            }
+          });*/
+        </script>
+      </div>
+    </section>
+    <footer>
+      <div>Copyright(C) 2019. SparkMakers(BetaMan). All right reversed.</div>
+      <div>E-Mail: skymin0417@gmail.com</div>
+    </footer>
+  </body>
+</html>

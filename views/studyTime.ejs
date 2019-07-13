@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>바른 교실</title>
+    <link rel="stylesheet" href="css/sytle.css">
+    <link rel="stylesheet" href="css/c3.min.css">
+    <script src="js/d3.min.js"></script>
+    <script src="js/c3.min.js"></script>
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <header>
+      <div class="left-spacer"></div>
+      <div class="title"><span><a class="white_a" href="/">바른 교실</a></span></div>
+      <div class="right-spacer"></div>
+      <nav>
+        <ul>
+          <a href="/"><li>내 자세</li></a>
+          <a href="/class"><li>바른 우리 교실</li></a>
+          <a href="/device"><li>장치 관리</li></a>
+        </ul>
+      </nav>
+    </header>
+    <aside>
+      <div class="menuTitle">메뉴</div>
+      <div>
+        <ul>
+          <a href="/class"><li>우리반 자세 랭킹</li><a>
+          <a href="/studyTime"><li>수업 관리</li></a>
+        </ul>
+      </div>
+    </aside>
+    <section>
+      <div class="plate">
+        <h1>수업 시작하기</h1>
+        <div style="height: 50px;"></div>
+        <form action="/reqToDev" method="get">
+          <div class="selectArea">
+            <div class="listArea">
+              <div class="optionName">수업시간 선택</div>
+              <select name="time" id="timeList">
+                <option value="1" selected>1교시</option>
+                <option value="2">2교시</option>
+                <option value="3">3교시</option>
+              </select>
+            </div>
+          </div>
+          <button id="startStudyBtn" type="submit"><span>수업<br/>시작하기</span></button>
+        </form> 
+        <script>
+          if(<%= mode %>) alert('성공적으로 수업을 시작시켰습니다. 디바이스에 앉게되면 수업시간 자세 측정이 시작됩니다.');
+        </script>
+      </div>
+    </section>
+    <footer>
+      <div>Copyright(C) 2019. SparkMakers(BetaMan). All right reversed.</div>
+      <div>E-Mail: skymin0417@gmail.com</div>
+    </footer>
+  </body>
+</html>
